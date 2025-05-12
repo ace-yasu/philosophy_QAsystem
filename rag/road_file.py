@@ -65,7 +65,7 @@ class RoadFile:
         
         except Exception as e:
             logger.error(f"ファイル読み込みエラー: {e}")
-            raise
+            raise ValueError(f"ファイル読み込みエラー: {e}")
 
     def pdf_to_text(self, file_path: str) -> str:
         """
@@ -86,7 +86,7 @@ class RoadFile:
         
         except Exception as e:
             logger.error(f"PDFファイルのテキスト変換エラー: {e}")
-            raise
+            raise ValueError(f"PDFファイルのテキスト変換エラー: {e}")
 
     def serve(self):
         """
@@ -95,13 +95,15 @@ class RoadFile:
         try:
             file_path = self.load_file()
             text = self.pdf_to_text(file_path)
+            logger.debug(f"length of text: {len(text)}")
             return text
         except Exception as e:
             logger.error(f"ファイル読み込みエラー: {e}")
-            raise
+            raise ValueError(f"ファイル読み込みエラー: {e}")
 
 if __name__ == "__main__":
     print(f"__main__で読み込まれた環境変数: FILE_PATH={os.getenv('FILE_PATH')}")
     road_file = RoadFile("")
     text = road_file.serve()
-    print(f"PDFテキスト: {text}")
+    # print(f"PDFテキスト: {text}")
+    print(f"length of text : {len(text)}")
