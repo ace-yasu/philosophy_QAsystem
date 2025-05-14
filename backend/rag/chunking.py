@@ -49,6 +49,17 @@ class Chunker:
             
         except Exception as e:
             raise ValueError(f"チャンク化に失敗しました: {e}")
+
+    def chunk_to_vector(self, chunk: str) -> List[float]:
+        """
+        チャンクのテキストをベクトル化
+        args:
+            chunk: str
+        returns:
+            List[float]
+        """
+
+
         
     def serve(self):
         text = self.road_file.serve()

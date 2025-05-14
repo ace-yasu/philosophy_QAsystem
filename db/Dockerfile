@@ -2,7 +2,7 @@ FROM postgres:latest
 
 ENV TZ=Asia/Tokyo
 
-RUN apt-get update&&apte-get install -y\
+RUN apt-get update&&apt-get install -y\
     git\
     build-essential \
     postgresql-server-dev-all \
