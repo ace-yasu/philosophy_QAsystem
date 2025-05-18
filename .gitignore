@@ -1,3 +1,7 @@
 .venv
+.vscode
 .env
 text_data
+source
+document
+__pycache__

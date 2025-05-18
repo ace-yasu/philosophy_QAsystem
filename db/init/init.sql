@@ -5,5 +5,7 @@ CREATE TABLE IF NOT EXISTS embeddings (
     id SERIAL PRIMARY KEY,
     book TEXT NOT NULL,
     text TEXT NOT NULL,
-    embedding vector(1536)
-)
+    embedding VECTOR(384),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
