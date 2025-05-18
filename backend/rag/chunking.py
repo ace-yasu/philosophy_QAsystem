@@ -1,4 +1,3 @@
-from road_file import RoadFile
 from typing import List
 import logging
 import time
@@ -18,7 +17,8 @@ class Chunker:
     
     """
     def __init__(self):
-        self.road_file = RoadFile("")  # 環境変数FILE_PATHを使用するため、空文字列を渡す
+        # Circular importを避けるため、RoadFileクラスのインポートをここでは行わない
+        pass
 
     def chunk_text(self, text: str) -> List[str]:
         """
@@ -48,11 +48,10 @@ class Chunker:
             return chunks
             
         except Exception as e:
-            raise ValueError(f"チャンク化に失敗しました: {e}")
+            raise ValueError(f"failed to chunk text: {e}")
 
     def chunk_to_vector(self, chunk: str) -> List[float]:
         """
-        チャンクのテキストをベクトル化
         args:
             chunk: str
         returns:
@@ -60,16 +59,18 @@ class Chunker:
         """
 
 
-        
     def serve(self):
-        text = self.road_file.serve()
+        # Circular importを避けるため、ここでインポート
+        from rag.road_file import RoadFile
+        # serveメソッド内でRoadFileをインスタンス化
+        road_file = RoadFile("")
+        text = road_file.serve()
         logger.debug(f"テキスト: {text}")
-        chunks = chunker.chunk_text(text)
+        chunks = self.chunk_text(text)
         return chunks
 
 if __name__ == "__main__":
     chunker = Chunker()
-    chunks = chunker.serve()
-    # text = chunker.road_file.serve()
-    # chunks = chunker.chunk_text(text)
+    text = "これはテスト用のテキストです。チャンク化のテストを行います。100文字以上のテキストを用意して、正しくチャンク化されるかを確認します。テキストの分割とオーバーラップが正しく機能しているかを検証するためのサンプルテキストです。"
+    chunks = chunker.chunk_text(text)
     print(chunks)
